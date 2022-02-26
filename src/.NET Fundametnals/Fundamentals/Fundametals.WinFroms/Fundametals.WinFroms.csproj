@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fundamentals.Library\Fundamentals.Library.csproj">
+      <Project>{D433726F-0F29-41F8-A56C-EA5E464CA054}</Project>
+      <Name>Fundamentals.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

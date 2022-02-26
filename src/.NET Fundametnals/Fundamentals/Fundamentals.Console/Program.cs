@@ -1,4 +1,6 @@
-﻿namespace Fundamentals.Console
+﻿using Fundamentals.Library;
+
+namespace Fundamentals.Console
 {
     internal class Program
     {
@@ -6,7 +8,7 @@
         {
             System.Console.Write("Input: ");
             var userName = System.Console.ReadLine();
-            System.Console.WriteLine("Hello, {0}!", userName);
+            System.Console.WriteLine(HelloHelper.GetHello(userName));
         }
     }
 }

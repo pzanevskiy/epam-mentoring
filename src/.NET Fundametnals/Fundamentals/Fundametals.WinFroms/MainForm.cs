@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Fundamentals.Library;
 
 namespace Fundametals.WinFroms
 {
@@ -13,7 +14,7 @@ namespace Fundametals.WinFroms
         private void helloButton_Click(object sender, EventArgs e)
         {
             var userName = inputTextBox.Text;
-            MessageBox.Show($"Hello, {userName}!", $"Hello, {userName}!", MessageBoxButtons.OK);
+            MessageBox.Show(HelloHelper.GetHello(userName), $"Hello, {userName}!", MessageBoxButtons.OK);
         }
     }
 }
