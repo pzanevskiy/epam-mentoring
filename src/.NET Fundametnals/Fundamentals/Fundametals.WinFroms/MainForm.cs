@@ -13,8 +13,30 @@ namespace Fundametals.WinFroms
 
         private void helloButton_Click(object sender, EventArgs e)
         {
-            var userName = inputTextBox.Text;
-            MessageBox.Show(HelloHelper.GetHello(userName), $"Hello, {userName}!", MessageBoxButtons.OK);
+            try
+            {
+                var userName = inputTextBox.Text;
+                var greeting = HelloHelper.GetHello(userName);
+                ShowSuccessMessage(greeting);
+            }
+            catch (ArgumentNullException exception)
+            {
+                ShowErrorMessage($"An error occurred with the following message: {exception.Message}.");
+            }
+            catch (Exception exception)
+            {
+                ShowErrorMessage($"An unhandled error occurred with the following message: {exception.Message}.");
+            }
+        }
+
+        private void ShowSuccessMessage(string greeting)
+        {
+            MessageBox.Show(greeting, greeting, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ShowErrorMessage(string errorMessage)
+        {
+            MessageBox.Show(errorMessage, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
