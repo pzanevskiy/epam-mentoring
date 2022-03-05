@@ -1,3 +1,3 @@
 # epam-mentoring
 
-![Test report](https://github.com/pzanevskiy/epam-mentoring/actions/workflows/testreport.yml/badge.svg)
+![Test report](https://github.com/pzanevskiy/epam-mentoring/runs/5433689065/badge.svg)
