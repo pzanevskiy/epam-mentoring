@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: dorny/test-reporter@v1
       with:
-        artifact: dotnet-results-${{ matrix.dotnet-version }}
+        artifact: dotnet-results-3.1.x
         name: Test report
         path: '*.trx'                     # Path to test results (inside artifact .zip)
         reporter: dotnet-trx    
