@@ -33,5 +33,6 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           artifact: dotnet-results-${{ matrix.dotnet-version }}
+          name: dotnet-results-${{ matrix.dotnet-version }}
           path: '*.trx'                     # Path to test results (inside artifact .zip)
           reporter: dotnet-trx    
