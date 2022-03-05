@@ -1,11 +1,10 @@
 using NUnit.Framework;
 using System;
-using Task1;
 
 namespace Task1.Tests
 {
     [TestFixture]
-    public class Tests
+    public class UtilitiesTests
     {
         [Test]
         public void Sort_Numbers_ReturnsAscendingSortedNumbers()
