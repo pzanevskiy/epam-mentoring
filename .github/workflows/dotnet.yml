@@ -17,11 +17,11 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ./src/Debugging
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build ./src/Debugging --configuration Release --no-restore
       - name: Test with dotnet
-        run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+        run: dotnet test ./src/Debugging --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
         with:
