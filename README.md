@@ -1,3 +1,3 @@
-# epam-mentoring
+# Epam mentoring
 
-![Test report](https://github.com/pzanevskiy/epam-mentoring/runs/5433689065)
+[Debugging - Test report](https://github.com/pzanevskiy/epam-mentoring/runs/5433698532)
