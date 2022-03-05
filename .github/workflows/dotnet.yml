@@ -21,18 +21,17 @@ jobs:
       - name: Build
         run: dotnet build ./src/Debugging --configuration Release --no-restore
       - name: Test with dotnet
-        run: dotnet test ./src/Debugging --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+        run: dotnet test ./src/Debugging --logger "trx;LogFileName=test-results.trx"
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
         with:
           name: dotnet-results-${{ matrix.dotnet-version }}
-          path: TestResults-${{ matrix.dotnet-version }}
+          path: test-results-${{ matrix.dotnet-version }}
        # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
-      - name: Publish Unit Test Results
+      - name: Test report
         uses: dorny/test-reporter@v1
         with:
           artifact: dotnet-results-${{ matrix.dotnet-version }}
-          name: Nunit Tests                  # Name of the check run which will be created
           path: '*.trx'                     # Path to test results (inside artifact .zip)
           reporter: dotnet-trx    
