@@ -29,3 +29,10 @@ jobs:
           path: TestResults-${{ matrix.dotnet-version }}
        # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
+      - name: Publish Unit Test Results
+        uses: dorny/test-reporter@v1
+        with:
+          artifact: dotnet-results-${{ matrix.dotnet-version }}
+          name: Nunit Tests                  # Name of the check run which will be created
+          path: '*.trx'                     # Path to test results (inside artifact .zip)
+          reporter: dotnet-trx    
