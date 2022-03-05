@@ -9,11 +9,11 @@ namespace Task1.Tests
         [Test]
         public void Sort_Numbers_ReturnsAscendingSortedNumbers()
         {
-            int[] numbers = new[] { 4, 0, 2, 1, 3, -5 };
+            int[] numbers = new[] { 4, 2, 1, 3, -5 };
 
             Utilities.Sort(numbers);
 
-            CollectionAssert.AreEqual(new[] { -5, 0, 1, 2, 3, 4 }, numbers);
+            CollectionAssert.AreEqual(new[] { -5, 1, 2, 3, 4 }, numbers);
         }
 
         [Test]
