@@ -3,15 +3,12 @@ using FileSystemVisitor.Lib.Arguments;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using FileSystemVisitor.Lib.Models;
 
 namespace FileSystemVisitor.Lib.Services
 {
-    public class FileSystemVisitorService : IFileSystemVisitor,
-        IEventSubscriber<IManagerService<ManagerEventArgs>>
+    public class FileSystemVisitorService : IFileSystemVisitor
     {
-        private bool _shouldStop;
         private readonly Func<FileSystemInfo, bool> _filter;
 
         public FileSystemVisitorService(Func<FileSystemInfo, bool> filter = null)
@@ -117,29 +114,6 @@ namespace FileSystemVisitor.Lib.Services
             {
                 Finish?.Invoke(this, new EventArgs());
             }
-        }
-
-        public void Subscribe(IManagerService<ManagerEventArgs> publisher)
-        {
-            publisher.Start += Publisher_Start;
-            publisher.Stop += Publisher_Stop;
-        }
-
-        public void Unubscribe(IManagerService<ManagerEventArgs> publisher)
-        {
-            publisher.Start -= Publisher_Start;
-            publisher.Stop -= Publisher_Stop;
-        }
-
-        private void Publisher_Start(object sender, ManagerEventArgs e)
-        {
-            _shouldStop = e.ShouldStop;
-            GetFileSystemInfo(e.DirectoryPath, e.ShouldStop);
-        }
-
-        private void Publisher_Stop(object sender, ManagerEventArgs e)
-        {
-            _shouldStop = e.ShouldStop;
         }
     }
 }

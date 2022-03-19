@@ -33,7 +33,7 @@ namespace FileSystemVisitor.Forms
             this.fileInfoGridView = new System.Windows.Forms.DataGridView();
             this.objName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.eventView = new System.Windows.Forms.DataGridView();
             this.Event = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
             this.riseEventsCheckBox = new System.Windows.Forms.CheckBox();
@@ -43,8 +43,9 @@ namespace FileSystemVisitor.Forms
             this.nameFilter = new System.Windows.Forms.TextBox();
             this.includeFiles = new System.Windows.Forms.CheckBox();
             this.inclideDirs = new System.Windows.Forms.CheckBox();
+            this.includeDate = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.fileInfoGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventView)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -88,20 +89,20 @@ namespace FileSystemVisitor.Forms
             this.CreationTime.ReadOnly = true;
             this.CreationTime.Width = 150;
             // 
-            // dataGridView2
+            // eventView
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.eventView.AllowUserToAddRows = false;
+            this.eventView.AllowUserToDeleteRows = false;
+            this.eventView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.eventView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Event});
-            this.dataGridView2.Location = new System.Drawing.Point(676, 12);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 29;
-            this.dataGridView2.Size = new System.Drawing.Size(664, 343);
-            this.dataGridView2.TabIndex = 3;
+            this.eventView.Location = new System.Drawing.Point(676, 12);
+            this.eventView.Name = "eventView";
+            this.eventView.ReadOnly = true;
+            this.eventView.RowHeadersWidth = 51;
+            this.eventView.RowTemplate.Height = 29;
+            this.eventView.Size = new System.Drawing.Size(664, 343);
+            this.eventView.TabIndex = 3;
             // 
             // Event
             // 
@@ -134,7 +135,7 @@ namespace FileSystemVisitor.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(807, 394);
+            this.label1.Location = new System.Drawing.Point(676, 392);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 20);
             this.label1.TabIndex = 7;
@@ -143,7 +144,7 @@ namespace FileSystemVisitor.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(932, 429);
+            this.label2.Location = new System.Drawing.Point(676, 431);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(160, 20);
             this.label2.TabIndex = 8;
@@ -151,14 +152,14 @@ namespace FileSystemVisitor.Forms
             // 
             // creationTimeFilter
             // 
-            this.creationTimeFilter.Location = new System.Drawing.Point(676, 424);
+            this.creationTimeFilter.Location = new System.Drawing.Point(842, 425);
             this.creationTimeFilter.Name = "creationTimeFilter";
             this.creationTimeFilter.Size = new System.Drawing.Size(250, 27);
             this.creationTimeFilter.TabIndex = 9;
             // 
             // nameFilter
             // 
-            this.nameFilter.Location = new System.Drawing.Point(676, 391);
+            this.nameFilter.Location = new System.Drawing.Point(799, 392);
             this.nameFilter.Name = "nameFilter";
             this.nameFilter.Size = new System.Drawing.Size(125, 27);
             this.nameFilter.TabIndex = 10;
@@ -168,7 +169,7 @@ namespace FileSystemVisitor.Forms
             this.includeFiles.AutoSize = true;
             this.includeFiles.Checked = true;
             this.includeFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.includeFiles.Location = new System.Drawing.Point(676, 457);
+            this.includeFiles.Location = new System.Drawing.Point(793, 361);
             this.includeFiles.Name = "includeFiles";
             this.includeFiles.Size = new System.Drawing.Size(110, 24);
             this.includeFiles.TabIndex = 11;
@@ -178,18 +179,29 @@ namespace FileSystemVisitor.Forms
             // inclideDirs
             // 
             this.inclideDirs.AutoSize = true;
-            this.inclideDirs.Location = new System.Drawing.Point(676, 488);
+            this.inclideDirs.Location = new System.Drawing.Point(909, 361);
             this.inclideDirs.Name = "inclideDirs";
             this.inclideDirs.Size = new System.Drawing.Size(153, 24);
             this.inclideDirs.TabIndex = 12;
             this.inclideDirs.Text = "Include directories";
             this.inclideDirs.UseVisualStyleBackColor = true;
             // 
+            // includeDate
+            // 
+            this.includeDate.AutoSize = true;
+            this.includeDate.Location = new System.Drawing.Point(1098, 427);
+            this.includeDate.Name = "includeDate";
+            this.includeDate.Size = new System.Drawing.Size(113, 24);
+            this.includeDate.TabIndex = 13;
+            this.includeDate.Text = "Include date";
+            this.includeDate.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1352, 553);
+            this.Controls.Add(this.includeDate);
             this.Controls.Add(this.inclideDirs);
             this.Controls.Add(this.includeFiles);
             this.Controls.Add(this.nameFilter);
@@ -198,13 +210,13 @@ namespace FileSystemVisitor.Forms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.riseEventsCheckBox);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.eventView);
             this.Controls.Add(this.fileInfoGridView);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.fileInfoGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,7 +225,7 @@ namespace FileSystemVisitor.Forms
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView fileInfoGridView;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView eventView;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Event;
         private System.Windows.Forms.CheckBox riseEventsCheckBox;
@@ -225,6 +237,7 @@ namespace FileSystemVisitor.Forms
         private System.Windows.Forms.TextBox nameFilter;
         private System.Windows.Forms.CheckBox includeFiles;
         private System.Windows.Forms.CheckBox inclideDirs;
+        private System.Windows.Forms.CheckBox includeDate;
     }
 }
 
