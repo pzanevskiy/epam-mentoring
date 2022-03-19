@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileSystemVisitor.Console.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace FileSystemVisitor.Console
                 System.Console.WriteLine("File found");
                 System.Console.ForegroundColor = ConsoleColor.White;
             };
-            var x = service.GetFileSystemInfo(@"C://Reports");
+            var x = service.GetFileSystemInfo(@"C://Reports", false);
             foreach (var item in x)
             {
                 if (item is FileInfo)

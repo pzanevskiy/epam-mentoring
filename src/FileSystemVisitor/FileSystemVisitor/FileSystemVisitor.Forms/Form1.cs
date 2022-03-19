@@ -27,20 +27,25 @@ namespace FileSystemVisitor.Forms
                 var openFileDialog = new FolderBrowserDialog();
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var x = new FileSystemVisitorService();
+                    //var x = new FileSystemVisitorService();
 
-                    var files = x.GetFileSystemInfo(openFileDialog.SelectedPath);
-                    var filtered = files
-                        .Where(x=>x is DirectoryInfo)
-                        .Select(x => new { x.Name, x.LastWriteTime });
-                    source.DataSource = filtered;
-                    dataGridView1.DataSource = source;
+                    //var files = x.GetFileSystemInfo(openFileDialog.SelectedPath);
+                    //var filtered = files
+                    //    .Where(x=>x is DirectoryInfo)
+                    //    .Select(x => new { x.Name, x.LastWriteTime });
+                    //source.DataSource = filtered;
+                    //dataGridView1.DataSource = source;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
             }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
 
         }
     }
