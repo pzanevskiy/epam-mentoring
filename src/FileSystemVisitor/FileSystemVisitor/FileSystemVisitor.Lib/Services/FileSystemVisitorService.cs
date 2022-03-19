@@ -1,13 +1,15 @@
-﻿using FileSystemVisitor.Console.Arguments;
-using FileSystemVisitor.Console.Interfaces;
+﻿using FileSystemVisitor.Lib.Interfaces;
+using FileSystemVisitor.Lib.Arguments;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using FileSystemVisitor.Lib.Models;
 
-namespace FileSystemVisitor.Console.Services
+namespace FileSystemVisitor.Lib.Services
 {
-    public class FileSystemVisitorService : IFileSystemVisitor, IEventSubscriber<IManagerService<ManagerEventArgs>>
+    public class FileSystemVisitorService : IFileSystemVisitor,
+        IEventSubscriber<IManagerService<ManagerEventArgs>>
     {
         private bool _shouldStop;
         private readonly Func<FileSystemInfo, bool> _filter;
@@ -29,7 +31,7 @@ namespace FileSystemVisitor.Console.Services
 
         public event EventHandler<FileInfoEventArgs> FilteredDirectoryFound;
 
-        public IEnumerable<FileSystemInfo> GetFileSystemInfo(string rootDir, bool shouldRiseEvents)
+        public IEnumerable<FileSystemResult> GetFileSystemInfo(string rootDir, bool shouldRiseEvents)
         {
             if (string.IsNullOrEmpty(rootDir))
             {
@@ -56,7 +58,12 @@ namespace FileSystemVisitor.Console.Services
                     {
                         FilteredFileFound?.Invoke(this, new FileInfoEventArgs(file.Name));
                     }
-                    yield return file;
+
+                    yield return new FileSystemResult()
+                    {
+                        Name = file.Name,
+                        CreationTime = file.CreationTime
+                    };
                 }
 
                 if (_filter is null)
@@ -65,7 +72,12 @@ namespace FileSystemVisitor.Console.Services
                     {
                         FileFound?.Invoke(this, new FileInfoEventArgs(file.Name));
                     }
-                    yield return file;
+
+                    yield return new FileSystemResult()
+                    {
+                        Name = file.Name,
+                        CreationTime = file.CreationTime
+                    };
                 }
 
             }
@@ -78,7 +90,12 @@ namespace FileSystemVisitor.Console.Services
                     {
                         FilteredDirectoryFound?.Invoke(this, new FileInfoEventArgs(dir.Name));
                     }
-                    yield return dir;
+
+                    yield return new FileSystemResult()
+                    {
+                        Name = dir.Name,
+                        CreationTime = dir.CreationTime
+                    };
                 }
 
                 if (_filter is null)
@@ -87,7 +104,12 @@ namespace FileSystemVisitor.Console.Services
                     {
                         DirectoryFound?.Invoke(this, new FileInfoEventArgs(dir.Name));
                     }
-                    yield return dir;
+
+                    yield return new FileSystemResult()
+                    {
+                        Name = dir.Name,
+                        CreationTime = dir.CreationTime
+                    };
                 }
             }
 

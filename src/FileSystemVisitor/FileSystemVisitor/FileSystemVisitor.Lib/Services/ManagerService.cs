@@ -1,8 +1,8 @@
-﻿using FileSystemVisitor.Console.Arguments;
-using FileSystemVisitor.Console.Interfaces;
+﻿using FileSystemVisitor.Lib.Interfaces;
+using FileSystemVisitor.Lib.Arguments;
 using System;
 
-namespace FileSystemVisitor.Console.Services
+namespace FileSystemVisitor.Lib.Services
 {
     public class ManagerService : IManagerService<ManagerEventArgs>
     {

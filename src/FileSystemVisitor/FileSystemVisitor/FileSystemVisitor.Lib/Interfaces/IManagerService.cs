@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FileSystemVisitor.Console.Interfaces
+namespace FileSystemVisitor.Lib.Interfaces
 {
     public interface IManagerService<T> where T : EventArgs
     {

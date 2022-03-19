@@ -1,8 +1,6 @@
-﻿using FileSystemVisitor.Console.Services;
+﻿using FileSystemVisitor.Lib.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace FileSystemVisitor.Console
 {
@@ -43,14 +41,6 @@ namespace FileSystemVisitor.Console
             var x = service.GetFileSystemInfo(@"C://Reports", false);
             foreach (var item in x)
             {
-                if (item is FileInfo)
-                {
-                    System.Console.WriteLine($"File - {item.Name}");
-                }
-                else
-                {
-                    System.Console.WriteLine($"Folder - {item.Name}");
-                }
             }
         }     
     }

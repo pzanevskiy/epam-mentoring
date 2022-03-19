@@ -1,10 +1,9 @@
-﻿using FileSystemVisitor.Console.Arguments;
+﻿using FileSystemVisitor.Lib.Arguments;
+using FileSystemVisitor.Lib.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
-namespace FileSystemVisitor.Console.Interfaces
+namespace FileSystemVisitor.Lib.Interfaces
 {
     public interface IFileSystemVisitor
     {
@@ -20,6 +19,6 @@ namespace FileSystemVisitor.Console.Interfaces
 
         public event EventHandler<FileInfoEventArgs> FilteredDirectoryFound;
 
-        IEnumerable<FileSystemInfo> GetFileSystemInfo(string rootDir, bool shouldRiseEvents);
+        IEnumerable<FileSystemResult> GetFileSystemInfo(string rootDir, bool shouldRiseEvents);
     }
 }

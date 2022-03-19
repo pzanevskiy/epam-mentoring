@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FileSystemVisitor.Console.Arguments
+namespace FileSystemVisitor.Lib.Arguments
 {
     public class FileInfoEventArgs : EventArgs
     {
