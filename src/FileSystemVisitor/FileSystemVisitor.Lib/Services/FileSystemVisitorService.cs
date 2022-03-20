@@ -9,6 +9,7 @@ namespace FileSystemVisitor.Lib.Services
 {
     public class FileSystemVisitorService : IFileSystemVisitor
     {
+        private const string EmptyStringError = "Input string cannot be null, empty or consist only of whitespaces";
         private readonly Func<FileSystemInfo, bool> _filter;
 
         public FileSystemVisitorService(Func<FileSystemInfo, bool> filter = null)
@@ -30,14 +31,14 @@ namespace FileSystemVisitor.Lib.Services
 
         public IEnumerable<FileSystemResult> GetFileSystemInfo(string rootDir, bool shouldRiseEvents)
         {
-            if (string.IsNullOrEmpty(rootDir))
+            if (string.IsNullOrWhiteSpace(rootDir))
             {
-                throw new ArgumentNullException(nameof(rootDir));
+                throw new ArgumentException(EmptyStringError, nameof(rootDir));
             }
 
             if (shouldRiseEvents)
             {
-                Start?.Invoke(this, new EventArgs());
+                Start?.Invoke(this, EventArgs.Empty);
             }
 
             var root = new DirectoryInfo(rootDir);
@@ -112,7 +113,7 @@ namespace FileSystemVisitor.Lib.Services
 
             if (shouldRiseEvents)
             {
-                Finish?.Invoke(this, new EventArgs());
+                Finish?.Invoke(this, EventArgs.Empty);
             }
         }
     }
