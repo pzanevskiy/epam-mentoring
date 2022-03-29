@@ -13,6 +13,8 @@ namespace Task1
                 {
                     Console.Write("Please input some string: ");
                     var inputString = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(inputString))
+                        throw new ArgumentNullException(nameof(inputString));
                     Console.WriteLine("First character of the input string is '{0}'", inputString[0]);
                     Thread.Sleep(TimeSpan.FromSeconds(3));
                     Console.Clear();
@@ -20,7 +22,6 @@ namespace Task1
                 catch (IndexOutOfRangeException)
                 {
                     Console.WriteLine("Input string cannot be empty.");
-                    throw;
                 }
             }
         }

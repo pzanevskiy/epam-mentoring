@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Task2
 {
     public class NumberParser : INumberParser
     {
-        private const string NumberPattern = @"^[\+-]?\d+$";
         private const string StringFormatExceptionMessage = "'{0}' is in wrong format.";
         private const string OverflowExceptionMessage = "Parsed value must be between {0} and {1}. Parsed value: '{2}'";
 
@@ -16,7 +15,11 @@ namespace Task2
 
             stringValue = stringValue.Trim();
 
-            if (!ValidateFormat(stringValue))
+            var isValid = stringValue.StartsWith('+') || stringValue.StartsWith('-')
+                ? ValidateFormat(stringValue[1..])
+                : ValidateFormat(stringValue);
+
+            if (!isValid)
                 throw new FormatException(string.Format(StringFormatExceptionMessage, stringValue));
 
             var parsedValue = stringValue[0] switch
@@ -32,7 +35,8 @@ namespace Task2
             return (int)parsedValue;
         }
 
-        private static bool ValidateFormat(string stringValue) => Regex.IsMatch(stringValue, NumberPattern);
+        private static bool ValidateFormat(string stringValue) => !string.IsNullOrWhiteSpace(stringValue) &&
+                                                                  stringValue.All(c => c - '0' >= 0 && c - '0' <= 9);
 
         private static bool ValidateIntOverflow(long value) => value < int.MinValue || value > int.MaxValue;
 
