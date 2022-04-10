@@ -1,5 +1,5 @@
-﻿using Reflection.Plugin;
-using Reflection.Providers;
+﻿using Reflection.Atrributes;
+using Reflection.ProviderInterface;
 using System;
 using System.Collections.Generic;
 

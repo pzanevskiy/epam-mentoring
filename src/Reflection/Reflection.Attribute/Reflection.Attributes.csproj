@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reflection.Plugin\Reflection.Plugin.csproj" />
-    <ProjectReference Include="..\Reflection.Providers\Reflection.Providers.csproj" />
+    <ProjectReference Include="..\Reflection.Plugin\Reflection.ProviderInterface.csproj" />
   </ItemGroup>
 
 </Project>

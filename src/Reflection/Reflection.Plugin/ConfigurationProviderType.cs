@@ -1,4 +1,4 @@
-﻿namespace Reflection.Plugin
+﻿namespace Reflection.ProviderInterface
 {
     public enum ConfigurationProviderType
     {

@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Reflection.Plugin;
+﻿using Newtonsoft.Json;
+using Reflection.ProviderInterface;
 using System;
 using System.IO;
 
@@ -14,14 +13,11 @@ namespace Reflection.Providers
 
         public string Read(string key)
         {
-            var configuration = new ConfigurationBuilder()
-               .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-               .AddJsonFile("appsettings.json", false, true)
-               .Build();
+            var inputJson = File.ReadAllText(_filePath);
+            dynamic jsonObject = JsonConvert.DeserializeObject(inputJson);
 
-            return configuration.GetSection(key).Value;
+            return jsonObject[key];
         }
-
 
         public void Write<TInput>(string key, TInput value)
         {

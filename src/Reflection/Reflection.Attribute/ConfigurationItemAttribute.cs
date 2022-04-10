@@ -1,4 +1,4 @@
-﻿using Reflection.Plugin;
+﻿using Reflection.ProviderInterface;
 using System;
 
 namespace Reflection.Attributes
