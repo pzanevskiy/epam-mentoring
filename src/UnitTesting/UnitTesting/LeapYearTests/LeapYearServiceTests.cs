@@ -1,6 +1,6 @@
-using System;
 using LeapYear.Lib;
 using NUnit.Framework;
+using System;
 
 namespace LeapYearTests
 {

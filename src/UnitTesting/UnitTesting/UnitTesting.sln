@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeapYear.Lib", "LeapYear.Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcStats.Tests", "CalcStats.Tests\CalcStats.Tests.csproj", "{2551D330-4780-442D-B760-96113D24CCC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcStats.Lib", "CalcStats.Lib\CalcStats.Lib.csproj", "{194F63F6-0399-493C-A96C-5F03D08AC8EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2551D330-4780-442D-B760-96113D24CCC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2551D330-4780-442D-B760-96113D24CCC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2551D330-4780-442D-B760-96113D24CCC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194F63F6-0399-493C-A96C-5F03D08AC8EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194F63F6-0399-493C-A96C-5F03D08AC8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194F63F6-0399-493C-A96C-5F03D08AC8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194F63F6-0399-493C-A96C-5F03D08AC8EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

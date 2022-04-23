@@ -1,3 +1,4 @@
+using CalcStats.Lib;
 using NUnit.Framework;
 
 namespace CalcStats.Tests
@@ -39,7 +40,7 @@ namespace CalcStats.Tests
         [Test]
         [TestCase(new[] { 123456 }, 1)]
         [TestCase(new[] { 6, 7, 8 }, 3)]
-        [TestCase(new[] { -6, -7, -21, 1234, -4567, 8910 }, 5)]
+        [TestCase(new[] { -6, -7, -21, 1234, -4567, 8910 }, 6)]
         public void GetSequenceCount_ArrayOfIntegers_ReturnsCountOfSequence(int[] sequence, int expectedCount)
         {
             // Arrange
@@ -55,7 +56,7 @@ namespace CalcStats.Tests
         [Test]
         [TestCase(new[] { 0, 1, 2 }, 1)]
         [TestCase(new[] { -6, 7, -22 }, -7)]
-        [TestCase(new[] { 1234, -4567, 8910 }, 1.859)]
+        [TestCase(new[] { 1234, -4567, 8910 }, 1859)]
         public void GetAverageValue_ArrayOfIntegers_ReturnsAverageValue(int[] sequence, double expectedAverage)
         {
             // Arrange
