@@ -1,4 +1,5 @@
 using System;
+using LeapYear.Lib;
 using NUnit.Framework;
 
 namespace LeapYearTests
@@ -9,6 +10,7 @@ namespace LeapYearTests
         [TestCase(-100)]
         [TestCase(-4214)]
         [TestCase(-1)]
+        [TestCase(0)]
         public void IsLeapYear_InvalidYear_ThrowsArgumentOutOfRangeException(int invalidYear)
         {
             var service = new LeapYearService();
@@ -31,10 +33,9 @@ namespace LeapYearTests
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(1900)]
-        [TestCase(2022)]
-        [TestCase(2021)]
+        [TestCase(2000)]
+        [TestCase(2020)]
+        [TestCase(2024)]
         public void IsLeapYear_LeapYear_ReturnsTrue(int leapYear)
         {
             var service = new LeapYearService();
