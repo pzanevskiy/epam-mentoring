@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace CircularPrimes.Tests
 {
-    public class Tests
+    public class CircularPrimeServiceTests
     {
         [Test]
         [TestCase(1, 0)]

@@ -18,7 +18,7 @@ namespace CircularPrimes.Lib
 
         public bool IsCircularPrime(int number)
         {
-            if (number < 0) throw new IndexOutOfRangeException();
+            if (number < 0) throw new ArgumentOutOfRangeException();
 
             return Enumerable.Range(0, GetIntLength(number))
                 .All(shift => IsPrime(RotateShift(number, shift)));
