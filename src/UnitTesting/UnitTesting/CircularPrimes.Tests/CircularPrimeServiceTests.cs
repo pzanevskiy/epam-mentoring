@@ -1,3 +1,4 @@
+using CircularPrimes.Lib;
 using NUnit.Framework;
 
 namespace CircularPrimes.Tests
@@ -27,6 +28,7 @@ namespace CircularPrimes.Tests
         [Test]
         [TestCase(1, new int[] { })]
         [TestCase(10, new[] { 2, 3, 5, 7 })]
+        [TestCase(100, new[] { 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, 97 })]
         public void GetCircularPrimes_Number_ReturnsCircularPrimes(int range, int[] expectedRange)
         {
             // Arrange
