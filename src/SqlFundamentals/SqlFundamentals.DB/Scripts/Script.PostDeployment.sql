@@ -1,8 +1,13 @@
-﻿insert into Person (PersonId, FirstName, LastName) values (0, 'Pavel', 'Zaneuski')
+﻿declare @personId int
+declare @addressId int
 
-insert into Address (AddressId, Street, City) values (1, 'YK, 87', 'Hrodna'), (2, 'YK, 1', 'Hrodna')
+insert into Person (FirstName, LastName) values ('Pavel', 'Zaneuski')
+set @personId = @@IDENTITY
 
-insert into Employee (EmployeeId, AddressId, PersonId, CompanyName, Position, EmployeeName) values 
-(3, 1, 0, 'EPAM Systems inc', 'Software Engineer', '')
+insert into Address (Street, City) values ('YK, 87', 'Hrodna')
+set @addressId = @@IDENTITY
 
-insert into Company (CompanyId, Name, AddressId) values (4, 'EPAM Systems inc', 1)
+insert into Employee (AddressId, PersonId, CompanyName, Position, EmployeeName) values 
+(@addressId, @personId, 'EPAM Systems inc', 'Software Engineer', '')
+
+insert into Company (Name, AddressId) values ('EPAM Systems inc', 1)
