@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using BrainstormSessions.Core.Interfaces;
 using BrainstormSessions.Core.Model;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Extensions.Logging;
+using Serilog.Sinks.Email;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace BrainstormSessions
@@ -46,6 +48,22 @@ namespace BrainstormSessions
                 var serilogLogger = new LoggerConfiguration()
                     .Enrich.FromLogContext()
                     .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
+                    .WriteTo.Email(new EmailConnectionInfo()
+                    {
+                        FromEmail = "some email",
+                        ToEmail = "some email",
+                        MailServer = "smtp-mail.outlook.com",
+                        EnableSsl = false,
+                        Port = 587,
+                        NetworkCredentials = new NetworkCredential()
+                        {
+                            UserName = "some email",
+                            Password = "some password"
+                        },
+                        EmailSubject = "[{Timestamp:HH:mm:ss} {Level:u3}] Application Error"
+                    },
+                    batchPostingLimit: 10,
+                    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error)
                     .CreateLogger();
 
                 return new SerilogLoggerProvider(serilogLogger);

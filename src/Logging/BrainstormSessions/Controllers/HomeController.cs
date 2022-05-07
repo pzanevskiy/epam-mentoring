@@ -25,6 +25,8 @@ namespace BrainstormSessions.Controllers
 
         public async Task<IActionResult> Index()
         {
+            _logger.LogError("App error");
+            _logger.LogCritical("App error {Level}", LogLevel.Critical);
             _logger.LogInformation("Entered {Controller}, method - {MethodName}", "HomeController", "Index");
             var sessionList = await _sessionRepository.ListAsync();
 
