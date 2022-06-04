@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Ado.Net.Lib.Entities;
 
 namespace Ado.Net.Lib.Repos
 {
     public class ProductRepository : IRepository<Product>
     {
+        private const string SelectQuery = "SELECT * FROM dbo.Product";
         private readonly string _connectionString;
 
         public ProductRepository(string connectionString)
@@ -17,18 +20,23 @@ namespace Ado.Net.Lib.Repos
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
-            var query = "INSERT INTO dbo.Product " +
-                        "(Name, Description, Weight, Height, Width, Length) " +
-                        "VALUES (@Name, @Description, @Weight, @Height, @Width, @Length)";
-            var command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@Name", product.Name);
-            command.Parameters.AddWithValue("@Description", product.Description);
-            command.Parameters.AddWithValue("@Weight", product.Weight);
-            command.Parameters.AddWithValue("@Height", product.Height);
-            command.Parameters.AddWithValue("@Width", product.Width);
-            command.Parameters.AddWithValue("@Length", product.Length);
-            command.ExecuteNonQuery();
+            var adapter = new SqlDataAdapter(SelectQuery, connection);
+            var ds = new DataSet();
+            adapter.Fill(ds);
+
+            var dt = ds.Tables[0];
+            var row = dt.NewRow();
+            row["Name"] = product.Name;
+            row["Description"] = product.Description;
+            row["Height"] = product.Height;
+            row["Width"] = product.Width;
+            row["Length"] = product.Length;
+            row["Weight"] = product.Weight;
+            dt.Rows.Add(row);
+
+            var commandBuilder = new SqlCommandBuilder(adapter);
+            adapter.Update(ds);
         }
 
         public Product Read(int id)
@@ -65,37 +73,38 @@ namespace Ado.Net.Lib.Repos
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
-            var query = "UPDATE dbo.Product " +
-                        "SET Name = @Name, " +
-                        "Description = @Description, " +
-                        "Weight = @Weight, " +
-                        "Height = @Height, " +
-                        "Width = @Width, " +
-                        "Length = @Length " +
-                        "WHERE Id = @Id";
-            var command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@Id", id);
-            command.Parameters.AddWithValue("@Name", entity.Name);
-            command.Parameters.AddWithValue("@Description", entity.Description);
-            command.Parameters.AddWithValue("@Weight", entity.Weight);
-            command.Parameters.AddWithValue("@Height", entity.Height);
-            command.Parameters.AddWithValue("@Width", entity.Width);
-            command.Parameters.AddWithValue("@Length", entity.Length);
+            var adapter = new SqlDataAdapter(SelectQuery, connection);
+            var ds = new DataSet();
+            adapter.Fill(ds);
 
-            command.ExecuteNonQuery();
+            var dt = ds.Tables[0];
+            var row = dt.AsEnumerable().Single(x => x.Field<int>("Id") == id);
+            row["Name"] = entity.Name;
+            row["Description"] = entity.Description;
+            row["Height"] = entity.Height;
+            row["Width"] = entity.Width;
+            row["Length"] = entity.Length;
+            row["Weight"] = entity.Weight;
+
+            var commandBuilder = new SqlCommandBuilder(adapter);
+            adapter.Update(ds);
         }
 
         public void Delete(int id)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
-            var query = "DELETE FROM dbo.Product WHERE Id = @Id";
+            var adapter = new SqlDataAdapter(SelectQuery, connection);
+            var ds = new DataSet();
+            adapter.Fill(ds);
 
-            var command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Id", id);
+            var dt = ds.Tables[0];
+            var row = dt.AsEnumerable().Single(x => x.Field<int>("Id") == id);
+            row.Delete();
 
-            command.ExecuteNonQuery();
+            var commandBuilder = new SqlCommandBuilder(adapter);
+            adapter.Update(ds);
         }
 
         public IEnumerable<Product> GetAll()

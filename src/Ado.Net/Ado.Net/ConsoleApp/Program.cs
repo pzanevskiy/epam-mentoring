@@ -12,6 +12,17 @@ namespace ConsoleApp
 
             var unitOfWork = new UnitOfWork(connectionString);
 
+            unitOfWork.Products.Update(new Product()
+            {
+                Name = "new product11",
+                Description = "product description11",
+                Height = 100,
+                Length = 200,
+                Weight = 300,
+                Width = 400
+            }, 7);
+
+            unitOfWork.Products.Delete(7);
             //unitOfWork.Orders.Create(new Order
             //{
             //    Status = OrderStatus.NotStarted,
@@ -20,16 +31,16 @@ namespace ConsoleApp
             //    ProductId = 1
             //});
 
-            unitOfWork.Orders.Update(new Order()
-            {
-                Status = OrderStatus.Cancelled,
-                CreatedDate = new DateTime(2022, 06, 04),
-                UpdatedDate = DateTime.Now
-            }, 1);
+            //unitOfWork.Orders.Update(new Order()
+            //{
+            //    Status = OrderStatus.Cancelled,
+            //    CreatedDate = new DateTime(2022, 06, 04),
+            //    UpdatedDate = DateTime.Now
+            //}, 1);
 
-            unitOfWork.Orders.Delete(month: 5);
+            //unitOfWork.Orders.Delete(month: 5);
 
-            var products = unitOfWork.Products.GetAll();
+            //var products = unitOfWork.Products.GetAll();
         }
     }
 }

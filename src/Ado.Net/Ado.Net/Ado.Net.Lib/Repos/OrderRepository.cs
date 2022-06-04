@@ -102,8 +102,10 @@ namespace Ado.Net.Lib.Repos
 
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
-            var command = new SqlCommand(deleteOrdersSp, connection);
 
+            var sqlTransaction = connection.BeginTransaction();
+            var command = new SqlCommand(deleteOrdersSp, connection);
+            command.Transaction = sqlTransaction;
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@Month", month);
@@ -111,7 +113,17 @@ namespace Ado.Net.Lib.Repos
             command.Parameters.AddWithValue("@Year", year);
             command.Parameters.AddWithValue("@ProductId", productId);
 
-            command.ExecuteScalar();
+            try
+            {
+                command.ExecuteScalar();
+                sqlTransaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                sqlTransaction.Rollback();
+                throw;
+            }
         }
 
         public IEnumerable<Order> GetAll(int? month = null, OrderStatus? status = null, int? year = null, int? productId = null)
