@@ -14,7 +14,7 @@ namespace ORM.Lib.Entities
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime UpdatedDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         [ForeignKey("ProductId")]
         public int ProductId { get; set; }

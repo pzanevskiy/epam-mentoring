@@ -26,8 +26,15 @@ namespace ORM.ConsoleApp
             }
 
             var orderRepo = new OrderRepository(context);
+            //orderRepo.Create(new Order()
+            //{
+            //    CreatedDate = DateTime.Now,
+            //    ProductId = 3,
+            //    Status = OrderStatus.Arrived,
+            //    UpdateDate = DateTime.Now + TimeSpan.FromHours(5)
+            //});
 
-            var orders = orderRepo.GetOrders(status: OrderStatus.Loading);
+            var orders = orderRepo.GetOrders(status: OrderStatus.Arrived);
 
             foreach (var order in orders)
             {
