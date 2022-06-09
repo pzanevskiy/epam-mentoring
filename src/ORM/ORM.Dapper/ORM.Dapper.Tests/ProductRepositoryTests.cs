@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace ORM.Tests
+namespace ORM.Dapper.Tests
 {
     [TestFixture]
     public class ProductRepositoryTests
