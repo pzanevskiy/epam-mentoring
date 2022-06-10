@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using Ado.Net.Lib.Entities;
 using Ado.Net.Lib.Repos;
@@ -27,22 +28,29 @@ namespace Ado.Net.Tests
         }
 
         [Test]
+        [Order(1)]
         public void Create_Order_InsertsOrderIntoDb()
         {
-            Assert.DoesNotThrow(() => _orderRepository.Create(_order));
+            var expected = _order;
+            _orderRepository.Create(_order);
+            var actual = _orderRepository.GetAll().Last();
+            expected.Id = actual.Id;
+            Assert.AreEqual(JsonSerializer.Serialize(expected), JsonSerializer.Serialize(actual));
         }
 
         [Test]
+        [Order(2)]
         public void Read_ValidId_ReturnsOrder()
         {
             var expectedOrder = _order;
-            expectedOrder.Id = 4;
-            var actual = _orderRepository.Read(4);
+            expectedOrder.Id = _orderRepository.GetAll().Last().Id;
+            var actual = _orderRepository.Read(expectedOrder.Id);
 
             Assert.AreEqual(JsonSerializer.Serialize(expectedOrder), JsonSerializer.Serialize(actual));
         }
 
         [Test]
+        [Order(3)]
         public void Read_NotValidId_ReturnsNull()
         {
             var actual = _orderRepository.Read(10);
@@ -51,24 +59,28 @@ namespace Ado.Net.Tests
         }
 
         [Test]
+        [Order(4)]
         public void Update_Order_UpdatesOrderIntoDb()
         {
             var expectedOrder = _order;
-            expectedOrder.Id = 4;
+            expectedOrder.Id = _orderRepository.GetAll().Last().Id;
             expectedOrder.UpdatedDate = _order.UpdatedDate + TimeSpan.FromHours(4);
 
-            _orderRepository.Update(expectedOrder, 4);
-            var actual = _orderRepository.Read(4);
+            _orderRepository.Update(expectedOrder, expectedOrder.Id);
+            var actual = _orderRepository.Read(expectedOrder.Id);
 
             Assert.AreEqual(JsonSerializer.Serialize(expectedOrder), JsonSerializer.Serialize(actual));
         }
 
         [Test]
+        [Order(5)]
         public void Delete_ValidId_DeletesOrderFromDb()
         {
-            _orderRepository.Delete(id: 4);
+            var id = _orderRepository.GetAll().Last().Id;
 
-            var actual = _orderRepository.Read(4);
+            _orderRepository.Delete(id: id);
+
+            var actual = _orderRepository.Read(id);
 
             Assert.IsNull(actual);
         }

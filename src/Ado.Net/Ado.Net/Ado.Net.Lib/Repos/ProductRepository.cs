@@ -44,7 +44,7 @@ namespace Ado.Net.Lib.Repos
             Product product = null;
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
-            var query = "SELECT Id, Name, Description, Weight, Height FROM dbo.Product " +
+            var query = "SELECT Id, Name, Description, Weight, Height, Width, Length FROM dbo.Product " +
                         "WHERE Id = @Id";
 
             var command = new SqlCommand(query, connection);
@@ -62,7 +62,9 @@ namespace Ado.Net.Lib.Repos
                     Name = reader.GetString(1),
                     Description = reader.GetString(2),
                     Weight = reader.GetInt32(3),
-                    Height = reader.GetInt32(4)
+                    Height = reader.GetInt32(4),
+                    Width = reader.GetInt32(5),
+                    Length = reader.GetInt32(6)
                 };
             }
 

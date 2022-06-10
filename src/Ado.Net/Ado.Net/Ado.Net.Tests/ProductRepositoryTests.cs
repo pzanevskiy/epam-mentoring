@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Linq;
+using System.Text.Json;
 using Ado.Net.Lib.Entities;
 using Ado.Net.Lib.Repos;
 using NUnit.Framework;
@@ -10,47 +11,50 @@ namespace Ado.Net.Tests
     {
         private const string ConnectionString = "Data Source=EPBYGROW0169;Initial Catalog=Shop.DB;Integrated Security=True";
         private IRepository<Product> _productRepository;
+        private Product _product;
 
         [OneTimeSetUp]
         public void Setup()
         {
             _productRepository = new ProductRepository(ConnectionString);
-        }
-
-        [Test]
-        public void Create_Product_InsertsProductIntoDB()
-        {
-            var product = new Product
+            _product = new Product
             {
                 Name = "new product",
                 Description = "product description",
                 Height = 10,
                 Length = 20,
                 Weight = 30,
-                Width = 40
+                Width = 40,
             };
-
-            Assert.DoesNotThrow(() => _productRepository.Create(product));
         }
 
         [Test]
+        [Order(1)]
+        public void Create_Product_InsertsProductIntoDB()
+        {
+            var expected = _product;
+
+            _productRepository.Create(_product);
+            var actual = _productRepository.GetAll().Last();
+            expected.Id = actual.Id;
+
+            Assert.AreEqual(JsonSerializer.Serialize(expected), JsonSerializer.Serialize(actual));
+        }
+
+        [Test]
+        [Order(2)]
         public void Read_ValidId_ReturnsProduct()
         {
-            var expectedProduct = new Product()
-            {
-                Id = 1,
-                Name = "Cherry",
-                Description = "Some description",
-                Height = 4,
-                Weight = 10,
-            };
+            var expectedProduct = _product;
+            expectedProduct.Id = _productRepository.GetAll().Last().Id;
 
-            var actual = _productRepository.Read(1);
+            var actual = _productRepository.Read(expectedProduct.Id);
 
             Assert.AreEqual(JsonSerializer.Serialize(expectedProduct), JsonSerializer.Serialize(actual));
         }
 
         [Test]
+        [Order(3)]
         public void Read_NotValidId_ReturnsNull()
         {
             var actual = _productRepository.Read(2);
@@ -59,30 +63,28 @@ namespace Ado.Net.Tests
         }
 
         [Test]
+        [Order(4)]
         public void Update_Product_UpdateProductInDB()
         {
-            var expectedProduct = new Product()
-            {
-                Id = 1,
-                Name = "new Cherry",
-                Description = "Some description",
-                Height = 4,
-                Weight = 10,
-            };
+            var expectedProduct = _product;
+            expectedProduct.Id = _productRepository.GetAll().Last().Id;
+            expectedProduct.Description = "new product description";
 
-            _productRepository.Update(expectedProduct, 1);
+            _productRepository.Update(expectedProduct, expectedProduct.Id);
 
-            var actual = _productRepository.Read(1);
+            var actual = _productRepository.Read(expectedProduct.Id);
 
             Assert.AreEqual(JsonSerializer.Serialize(expectedProduct), JsonSerializer.Serialize(actual));
         }
 
         [Test]
+        [Order(5)]
         public void Delete_ValidId_DeleteProductInDB()
         {
-            _productRepository.Delete(5);
+            var id = _productRepository.GetAll().Last().Id;
+            _productRepository.Delete(id);
 
-            var actual = _productRepository.Read(5);
+            var actual = _productRepository.Read(id);
 
             Assert.IsNull(actual);
         }
