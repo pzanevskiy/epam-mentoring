@@ -1,4 +1,5 @@
-﻿using ORM.Lib.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using ORM.Lib.Context;
 
 namespace ORM.Lib.Repositories
 {
