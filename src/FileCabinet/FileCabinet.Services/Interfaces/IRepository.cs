@@ -4,7 +4,9 @@ namespace FileCabinet.Service.Interfaces
 {
     public interface IRepository<T>
     {
-        void Write(IEnumerable<T> documents);
+        void Write(T document);
+
+        void WriteRange(IEnumerable<T> documents);
 
         IEnumerable<T> Read();
 

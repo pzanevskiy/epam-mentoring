@@ -4,25 +4,24 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using FileCabinet.Models;
+using FileCabinet.Service.Helpers;
 using FileCabinet.Service.Interfaces;
 
 namespace FileCabinet.Service.Services
 {
     public class DocumentRepository : IRepository<Document>
     {
-        public void Write(IEnumerable<Document> documents)
+        public void WriteRange(IEnumerable<Document> documents)
         {
             foreach (var document in documents)
             {
-                var json = JsonSerializer.Serialize(document, document.GetType());
-                var path = $"{document.GetType().Name}_#{{{document.Id}}}.json";
-                File.WriteAllText(path, json);
+                Write(document);
             }
         }
 
         public IEnumerable<Document> Read()
         {
-            var docTypes = GetDocumentTypes().ToList();
+            var docTypes = TypesHelper.GetTypes<Document>().ToList();
             var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
             var files = directory
                 .GetFiles("*.json")
@@ -33,7 +32,9 @@ namespace FileCabinet.Service.Services
             foreach (var file in files)
             {
                 var jsonString = File.ReadAllText(file.FullName);
-                var type = docTypes.First(t => file.Name.Split('_')[0].Equals(t.Name, StringComparison.OrdinalIgnoreCase));
+                var type = docTypes.First(t =>
+                    file.Name.Split('_')[0].Equals(t.Name, StringComparison.OrdinalIgnoreCase));
+
                 var document = JsonSerializer.Deserialize(jsonString, type);
                 documents.Add((Document)document);
             }
@@ -45,11 +46,12 @@ namespace FileCabinet.Service.Services
             return Read().Single(x => x.Id == id);
         }
 
-        private static IEnumerable<Type> GetDocumentTypes()
+        public void Write(Document document)
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(x => x.GetTypes()).Where(t => t.BaseType == typeof(Document));
+            var json = JsonSerializer.Serialize(document, document.GetType());
+            var key = DocumentKeyHelper.GenerateKey(document);
+            var path = $"{key}.json";
+            File.WriteAllText(path, json);
         }
-
     }
 }
